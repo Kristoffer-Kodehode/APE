@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: #121212;
 }
 
 button {
@@ -8,4 +8,5 @@ button {
 
 img {
   max-width: 800px;
+  max-height: 700px;
 }
