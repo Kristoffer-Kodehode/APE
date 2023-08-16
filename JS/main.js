@@ -33,13 +33,6 @@ async function navigate(url) {
   }
 }
 
-/*async function fetchData(url) {
-  const request = fetch(url);
-  const data = await request.json();
-
-  return data;
-}*/
-
 async function fetchData(url) {
   const request = await fetch(url);
   const data = await request.json();
@@ -51,8 +44,3 @@ async function fetchData(url) {
 function magicNumber(max, start) {
   return Math.floor(Math.random() * max) + start;
 }
-
-//fetchData(baseURL + "/http/418");
-
-//418 https://random-d.uk/api/http/418
-//"/duck"
