@@ -10,7 +10,7 @@ let baseFactURL = "";
 let baseImgURL = "https://shibe.online/api/";
 let imgURL = "";
 
-// other attempted APIs: "https://random-d.uk/api"https://randomfox.ca/floof/"https://randomfox.ca/images/"
+// other attempted APIs: "https://random-d.uk/api"https://randomfox.ca/floof/"https://randomfox.ca/images/"https://meowfacts.herokuapp.com/""
 let navState = "home";
 
 renderBtn.addEventListener("click", () => {
@@ -20,8 +20,8 @@ renderBtn.addEventListener("click", () => {
     renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}?number=50}`);
   } else if (navState === "cat") {
     imgURL = `${baseImgURL}cats`;
-    baseFactURL = "https://meowfacts.herokuapp.com/";
-    renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}?count=50}`);
+    baseFactURL = "https://catfact.ninja";
+    renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}/fact`);
   }
 });
 
@@ -53,11 +53,11 @@ function renderFact(fact) {
 async function renderContent(imgURL, factURL) {
   const imgData = await fetchData(imgURL);
   const factData = await fetchData(factURL);
-  //factData.keys[0]
+
   contentContainer.innerHTML = "";
 
   const animal = imgData[0];
-  const fact = navState === "dog" ? factData.facts[0] : factData.data[0];
+  const fact = navState === "dog" ? factData.facts[0] : factData.fact[0];
   if (animal !== "undefined") {
     renderAnimal(animal);
     console.log(animal, fact);
