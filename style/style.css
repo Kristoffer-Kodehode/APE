@@ -12,6 +12,12 @@ button {
   color: #121212;
   background-color: #ce7624;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #db7e27;
+  border: #121212 solid 1.3px;
 }
 
 img {

@@ -24,7 +24,10 @@ renderBtn.addEventListener("click", () => {
   } else if (navState === "cat") {
     imgURL = `${baseImgURL}cats`;
     baseFactURL = "https://catfact.ninja";
-    renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}/facts`);
+    renderContent(
+      `${imgURL}?count=1&urls=true&httpsUrls=true.jpg`,
+      `${baseFactURL}/facts?page=${magicNumber(34, 1)}`
+    );
   }
 });
 
