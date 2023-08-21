@@ -21,7 +21,7 @@ renderBtn.addEventListener("click", () => {
   } else if (navState === "cat") {
     imgURL = `${baseImgURL}cats`;
     baseFactURL = "https://catfact.ninja";
-    renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}/fact`);
+    renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}/facts`);
   }
 });
 
@@ -57,7 +57,7 @@ async function renderContent(imgURL, factURL) {
   contentContainer.innerHTML = "";
 
   const animal = imgData[0];
-  const fact = navState === "dog" ? factData.facts[0] : factData.fact[0];
+  const fact = navState === "dog" ? factData.facts[0] : factData.data[magicNumber(10, 0)].fact;
   if (animal !== "undefined") {
     renderAnimal(animal);
     console.log(animal, fact);
