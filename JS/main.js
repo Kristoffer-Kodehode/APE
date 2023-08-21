@@ -16,8 +16,11 @@ let navState = "home";
 renderBtn.addEventListener("click", () => {
   if (navState === "dog") {
     imgURL = `${baseImgURL}shibes`;
-    baseFactURL = "http://dog-api.kinduff.com/api/facts";
-    renderContent(`${imgURL}?count=1&urls=true&httpsUrls=true.jpg`, `${baseFactURL}?number=50}`);
+    baseFactURL = "http://dog-api.kinduff.com/api";
+    renderContent(
+      `${imgURL}?count=1&urls=true&httpsUrls=true.jpg`,
+      `${baseFactURL}/facts?number=50}`
+    );
   } else if (navState === "cat") {
     imgURL = `${baseImgURL}cats`;
     baseFactURL = "https://catfact.ninja";
@@ -57,13 +60,17 @@ async function renderContent(imgURL, factURL) {
   contentContainer.innerHTML = "";
 
   const animal = imgData[0];
-  const fact = navState === "dog" ? factData.facts[0] : factData.data[magicNumber(10, 0)].fact;
-  if (animal !== "undefined") {
+  const fact =
+    navState === "dog"
+      ? factData.facts[magicNumber(50, 0)]
+      : factData.data[magicNumber(10, 0)].fact;
+  try {
+    contentContainer.style.visibility = "visible";
     renderAnimal(animal);
     console.log(animal, fact);
     renderFact(fact);
-  } else {
-    console.log(data);
+  } catch (error) {
+    console.error(`Something went wrong:\n${error}`);
   }
   if ((renderBtn.textContent = "RENDER")) renderBtn.textContent = "MORE!";
 }
@@ -76,6 +83,6 @@ async function fetchData(url) {
   //fetch(`${baseURL}/${magicNumber()}.jpg`).then((response) => console.log(response));
 }
 
-function magicNumber(max, start) {
+const magicNumber = (max, start) => {
   return Math.floor(Math.random() * max) + start;
-}
+};
