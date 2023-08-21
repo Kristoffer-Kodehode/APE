@@ -55,6 +55,7 @@ async function compileContent(imgURL, factURL) {
   contentContainer.innerHTML = "";
 
   const animal = imgData[0];
+  //the two APIs used for facts have slightly different structures
   const fact =
     navState === "dog"
       ? factData.facts[magicNumber(50, 0)]
@@ -66,7 +67,8 @@ async function compileContent(imgURL, factURL) {
   } catch (error) {
     console.error(`Something went wrong:\n${error}`);
   }
-  if ((renderBtn.textContent = "RENDER")) renderBtn.textContent = "MORE!";
+  if ((renderBtn.textContent = "Show me an animal and a fact about it!"))
+    renderBtn.textContent = "MORE!";
 }
 
 //render the content based on whether the user has chosen dog or cat
@@ -76,13 +78,12 @@ function render() {
     switch (navState) {
       case "dog":
         imgURL = `${baseImgURL}shibes`;
-        baseFactURL = "http://dog-api.kinduff.com/api";
+        baseFactURL = "https://dog-api.kinduff.com/api";
         compileContent(
           `${imgURL}?count=1&urls=true&httpsUrls=true.jpg`,
           `${baseFactURL}/facts?number=50}`
         );
         break;
-
       case "cat":
         imgURL = `${baseImgURL}cats`;
         baseFactURL = "https://catfact.ninja";
@@ -95,21 +96,6 @@ function render() {
   } catch (error) {
     console.error(`Something went wrong:\n${error}`);
   }
-  /*if (navState === "dog") {
-    imgURL = `${baseImgURL}shibes`;
-    baseFactURL = "http://dog-api.kinduff.com/api";
-    compileContent(
-      `${imgURL}?count=1&urls=true&httpsUrls=true.jpg`,
-      `${baseFactURL}/facts?number=50}`
-    );
-  } else if (navState === "cat") {
-    imgURL = `${baseImgURL}cats`;
-    baseFactURL = "https://catfact.ninja";
-    compileContent(
-      `${imgURL}?count=1&urls=true&httpsUrls=true.jpg`,
-      `${baseFactURL}/facts?page=${magicNumber(34, 1)}`
-    );
-  }*/
 }
 
 //fetching json data from API
