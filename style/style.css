@@ -21,8 +21,8 @@ button:hover {
 }
 
 img {
-  max-width: 21rem;
-  max-height: 20rem;
+  width: 20rem;
+  height: 20rem;
 }
 
 main {
@@ -35,6 +35,13 @@ main {
   border-radius: 7px;
   max-width: 26rem;
   margin: 10px auto auto;
-  padding: 0.5rem;
+  padding: 1.5rem;
   visibility: hidden;
+}
+
+@media (max-width: 400px) {
+  img {
+    width: 10rem;
+    height: 10rem;
+  }
 }
