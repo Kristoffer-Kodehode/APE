@@ -1,8 +1,7 @@
 body {
-  background-color: #CCC7B9;
+  background-color: #ccc7b9;
   color: #653239;
   text-align: center;
-  overflow: hidden;
 }
 
 button {
@@ -11,7 +10,7 @@ button {
   max-width: fit-content;
   border: #653239 solid 0.7px;
   color: #653239;
-  background-image: linear-gradient(to right, #E2D4BA 0%, #AF7A6D 51%, #E2D4BA 100%);;
+  background-image: linear-gradient(to right, #e2d4ba 0%, #af7a6d 51%, #e2d4ba 100%);
   border-radius: 50px;
   cursor: pointer;
   transition: 0.5s;
@@ -19,7 +18,8 @@ button {
   font-size: 1.4rem;
 }
 
-button:hover, button:focus {
+button:hover,
+button:focus {
   border: #52282e solid 1.3px;
   background-position: right center;
 }
@@ -32,7 +32,7 @@ p {
 img {
   max-width: 80vw;
   max-height: 70vh;
-  margin-bottom: 7PX;
+  margin-bottom: 7px;
 }
 
 main {
@@ -41,7 +41,7 @@ main {
 
 #container {
   box-shadow: #653239 5px 5px 10px, #653239 -3px -3px 10px;
-  background-color: #EAF9D9;
+  background-color: #eaf9d9;
   border-radius: 7px;
   width: fit-content;
   max-width: 80vw;
