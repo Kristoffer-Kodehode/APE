@@ -24,6 +24,10 @@ button:focus {
   background-position: right center;
 }
 
+#render-btn {
+  visibility: hidden;
+}
+
 p {
   font-size: larger;
   max-width: 50vw;
@@ -49,11 +53,6 @@ main {
   margin: 10px auto auto;
   padding: 1.5rem;
   visibility: hidden;
-}
-
-#error-el {
-  visibility: hidden;
-  color: crimson;
 }
 
 pre {

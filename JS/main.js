@@ -5,7 +5,7 @@ const homeBtn = document.getElementById("home-btn");
 const renderBtn = document.getElementById("render-btn");
 const dogBtn = document.getElementById("dog-btn");
 const catBtn = document.getElementById("cat-btn");
-const errorEl = document.getElementById("error-el");
+const infoEl = document.getElementById("info-el");
 
 let baseFactURL = "";
 let baseImgURL = "https://shibe.online/api/";
@@ -20,11 +20,17 @@ homeBtn.addEventListener("click", () => location.reload());
 
 dogBtn.addEventListener("click", () => {
   navState = "dog";
+  infoEl.textContent = "";
+  renderBtn.style.visibility = "visible";
+  renderBtn.textContent = "Show me a dog and a fact about them!";
   console.log(navState);
 });
 
 catBtn.addEventListener("click", () => {
   navState = "cat";
+  infoEl.textContent = "";
+  renderBtn.style.visibility = "visible";
+  renderBtn.textContent = "Show me a cat and a fact about them!";
   console.log(navState);
 });
 
@@ -67,15 +73,16 @@ async function compileContent(imgURL, factURL) {
     setFact(fact);
   } catch (error) {
     //add proper user-friendly error message
-    errorEl.style.visibility = "visible";
+    infoEl.style.color = "crimson";
     console.error(`Something went wrong:\n${error}`);
-    throw (errorEl.textContent = "Error, something went wrong.");
+    throw (infoEl.textContent = "Error, something went wrong.");
   }
 }
 
 //show the content and change the render button text to add some flavour
 const showAndPrepareMore = () => {
   contentContainer.style.visibility = "visible";
+  infoEl.style.color = "#653239";
   if ((renderBtn.textContent = "Show me an animal and a fact about it!"))
     renderBtn.textContent = "MORE!";
 };
@@ -104,14 +111,14 @@ function render() {
         );
         break;
       case "home":
-        errorEl.style.visibility = "visible";
-        errorEl.textContent = "Please select an animal first.";
+        infoEl.style.color = "crimson";
+        infoEl.textContent = "Please select an animal first.";
     }
   } catch (error) {
     //put error in console and give a user-friendly error message in DOM
     console.error(`Something went wrong:\n${error}`);
-    errorEl.style.visibility = "visible";
-    throw (errorEl.textContent = "Error, something went wrong");
+    infoEl.style.color = "crimson";
+    throw (infoEl.textContent = "Error, something went wrong");
   }
 }
 
@@ -123,10 +130,10 @@ async function fetchData(url) {
 
     return data;
   } catch (error) {
-    errorEl.style.visibility = "visible";
+    infoEl.style.color = "crimson";
     console.error(`Something went wrong:\n${error}`);
     //if this function fails, the problem should be the API
-    throw (errorEl.textContent = "Error, something went wrong with the API.");
+    throw (infoEl.textContent = "Error, something went wrong with the API.");
   }
 }
 
@@ -138,5 +145,5 @@ const magicNumber = (max, start) => {
 //clearing the way for a new render
 const clearContents = () => {
   contentContainer.innerHTML = "";
-  errorEl.textContent = "";
+  infoEl.textContent = "";
 };
