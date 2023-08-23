@@ -5,6 +5,7 @@ const homeBtn = document.getElementById("home-btn");
 const renderBtn = document.getElementById("render-btn");
 const dogBtn = document.getElementById("dog-btn");
 const catBtn = document.getElementById("cat-btn");
+const errorEl = document.getElementById("error-el")
 
 let baseFactURL = "";
 let baseImgURL = "https://shibe.online/api/";
@@ -35,9 +36,9 @@ renderBtn.addEventListener("keydown", (e) => {
 
 //making elements to set img and fact to with data from APIs and appending them to the container
 function setImg(animal) {
-  const render = document.createElement("img");
-  render.src = animal;
-  contentContainer.append(render);
+  const img = document.createElement("img");
+  img.src = animal;
+  contentContainer.append(img);
 }
 
 function setFact(fact) {
@@ -47,12 +48,10 @@ function setFact(fact) {
   contentContainer.append(factoid);
 }
 
-//try to get an image from the image API and the fact from the fact API
+//clear the content container and try to get an image from the image API and the fact from the fact API
 async function compileContent(imgURL, factURL) {
   const imgData = await fetchData(imgURL);
   const factData = await fetchData(factURL);
-
-  contentContainer.innerHTML = "";
 
   const animal = imgData[0];
   //the two APIs used for facts have slightly different structures
@@ -65,18 +64,25 @@ async function compileContent(imgURL, factURL) {
     console.log(animal, fact);
     setFact(fact);
   } catch (error) {
+    //add proper user-friendly error message
+    errorEl.style.visibility = "visible";
     console.error(`Something went wrong:\n${error}`);
+    throw errorEl.textContent = "Error, something went wrong."; 
   }
+  
+}
+const showAndPrepareMore = () => {
+  contentContainer.style.visibility = "visible";
   if ((renderBtn.textContent = "Show me an animal and a fact about it!"))
     renderBtn.textContent = "MORE!";
 }
-
 //render the content based on whether the user has chosen dog or cat
 function render() {
-  contentContainer.style.visibility = "visible";
+  clearContents()
   try {
     switch (navState) {
       case "dog":
+        showAndPrepareMore()
         imgURL = `${baseImgURL}shibes`;
         baseFactURL = "https://dog-api.kinduff.com/api";
         compileContent(
@@ -85,6 +91,7 @@ function render() {
         );
         break;
       case "cat":
+        showAndPrepareMore()
         imgURL = `${baseImgURL}cats`;
         baseFactURL = "https://catfact.ninja";
         compileContent(
@@ -92,21 +99,41 @@ function render() {
           `${baseFactURL}/facts?page=${magicNumber(33, 1)}`
         );
         break;
+      case "home":
+        errorEl.style.visibility = "visible";
+        errorEl.textContent = "Please select an animal first."; 
     }
+      
   } catch (error) {
+    //add proper user-friendly error message
     console.error(`Something went wrong:\n${error}`);
+    errorEl.style.visibility = "visible";
+    
+    throw errorEl.textContent = "Error, something went wrong"; 
+    
   }
 }
 
 //fetching json data from API
 async function fetchData(url) {
-  const request = await fetch(url);
+  try {
+    const request = await fetch(url);
   const data = await request.json();
 
   return data;
+  } catch (error) {
+    errorEl.style.visibility = "visible";
+    console.error(`Something went wrong:\n${error}`);
+    throw errorEl.textContent = "Error, something went wrong with the API."; 
+  }
 }
 
 //"random" number generator
 const magicNumber = (max, start) => {
   return Math.floor(Math.random() * max) + start;
 };
+
+const clearContents = () => {
+  contentContainer.innerHTML = ""
+  errorEl.textContent = ""
+}
