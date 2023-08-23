@@ -28,7 +28,8 @@ catBtn.addEventListener("click", () => {
   console.log(navState);
 });
 
-//rendering on button click, repeating when pressing enter afterwards
+/*rendering on button click, while focused pressing enter will also run the fetch and render cycle, 
+holding enter can break things slightly and render several images and facts after one another*/
 renderBtn.addEventListener("click", render);
 
 renderBtn.addEventListener("keydown", (e) => {
@@ -71,11 +72,14 @@ async function compileContent(imgURL, factURL) {
     throw (errorEl.textContent = "Error, something went wrong.");
   }
 }
+
+//show the content and change the render button text to add some flavour
 const showAndPrepareMore = () => {
   contentContainer.style.visibility = "visible";
   if ((renderBtn.textContent = "Show me an animal and a fact about it!"))
     renderBtn.textContent = "MORE!";
 };
+
 //render the content based on whether the user has chosen dog or cat
 function render() {
   clearContents();
@@ -104,10 +108,9 @@ function render() {
         errorEl.textContent = "Please select an animal first.";
     }
   } catch (error) {
-    //add proper user-friendly error message
+    //put error in console and give a user-friendly error message in DOM
     console.error(`Something went wrong:\n${error}`);
     errorEl.style.visibility = "visible";
-
     throw (errorEl.textContent = "Error, something went wrong");
   }
 }
@@ -122,6 +125,7 @@ async function fetchData(url) {
   } catch (error) {
     errorEl.style.visibility = "visible";
     console.error(`Something went wrong:\n${error}`);
+    //if this function fails, the problem should be the API
     throw (errorEl.textContent = "Error, something went wrong with the API.");
   }
 }
@@ -131,6 +135,7 @@ const magicNumber = (max, start) => {
   return Math.floor(Math.random() * max) + start;
 };
 
+//clearing the way for a new render
 const clearContents = () => {
   contentContainer.innerHTML = "";
   errorEl.textContent = "";

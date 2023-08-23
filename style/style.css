@@ -23,6 +23,7 @@ button:focus {
   border: #52282e solid 1.3px;
   background-position: right center;
 }
+
 p {
   font-size: larger;
   max-width: 50vw;
