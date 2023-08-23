@@ -5,7 +5,7 @@ const homeBtn = document.getElementById("home-btn");
 const renderBtn = document.getElementById("render-btn");
 const dogBtn = document.getElementById("dog-btn");
 const catBtn = document.getElementById("cat-btn");
-const errorEl = document.getElementById("error-el")
+const errorEl = document.getElementById("error-el");
 
 let baseFactURL = "";
 let baseImgURL = "https://shibe.online/api/";
@@ -15,6 +15,7 @@ let imgURL = "";
 //navigation
 let navState = "home";
 
+//reset the page
 homeBtn.addEventListener("click", () => location.reload());
 
 dogBtn.addEventListener("click", () => {
@@ -67,22 +68,21 @@ async function compileContent(imgURL, factURL) {
     //add proper user-friendly error message
     errorEl.style.visibility = "visible";
     console.error(`Something went wrong:\n${error}`);
-    throw errorEl.textContent = "Error, something went wrong."; 
+    throw (errorEl.textContent = "Error, something went wrong.");
   }
-  
 }
 const showAndPrepareMore = () => {
   contentContainer.style.visibility = "visible";
   if ((renderBtn.textContent = "Show me an animal and a fact about it!"))
     renderBtn.textContent = "MORE!";
-}
+};
 //render the content based on whether the user has chosen dog or cat
 function render() {
-  clearContents()
+  clearContents();
   try {
     switch (navState) {
       case "dog":
-        showAndPrepareMore()
+        showAndPrepareMore();
         imgURL = `${baseImgURL}shibes`;
         baseFactURL = "https://dog-api.kinduff.com/api";
         compileContent(
@@ -91,7 +91,7 @@ function render() {
         );
         break;
       case "cat":
-        showAndPrepareMore()
+        showAndPrepareMore();
         imgURL = `${baseImgURL}cats`;
         baseFactURL = "https://catfact.ninja";
         compileContent(
@@ -101,16 +101,14 @@ function render() {
         break;
       case "home":
         errorEl.style.visibility = "visible";
-        errorEl.textContent = "Please select an animal first."; 
+        errorEl.textContent = "Please select an animal first.";
     }
-      
   } catch (error) {
     //add proper user-friendly error message
     console.error(`Something went wrong:\n${error}`);
     errorEl.style.visibility = "visible";
-    
-    throw errorEl.textContent = "Error, something went wrong"; 
-    
+
+    throw (errorEl.textContent = "Error, something went wrong");
   }
 }
 
@@ -118,13 +116,13 @@ function render() {
 async function fetchData(url) {
   try {
     const request = await fetch(url);
-  const data = await request.json();
+    const data = await request.json();
 
-  return data;
+    return data;
   } catch (error) {
     errorEl.style.visibility = "visible";
     console.error(`Something went wrong:\n${error}`);
-    throw errorEl.textContent = "Error, something went wrong with the API."; 
+    throw (errorEl.textContent = "Error, something went wrong with the API.");
   }
 }
 
@@ -134,6 +132,6 @@ const magicNumber = (max, start) => {
 };
 
 const clearContents = () => {
-  contentContainer.innerHTML = ""
-  errorEl.textContent = ""
-}
+  contentContainer.innerHTML = "";
+  errorEl.textContent = "";
+};
