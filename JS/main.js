@@ -15,7 +15,7 @@ let imgURL = "";
 //navigation
 let navState = "home";
 
-//reset the page
+//just resets the page, probably a better way to do it out there
 homeBtn.addEventListener("click", () => location.reload());
 
 dogBtn.addEventListener("click", () => {
