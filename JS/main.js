@@ -18,21 +18,17 @@ let navState = "home";
 //just resets the page, probably a better way to do it out there
 homeBtn.addEventListener("click", () => location.reload());
 
-dogBtn.addEventListener("click", () => {
-  navState = "dog";
-  infoEl.textContent = "";
-  renderBtn.style.visibility = "visible";
-  renderBtn.textContent = "Show me a dog and a fact about them!";
-  console.log(navState);
-});
+dogBtn.addEventListener("click", () => selectAnimal("dog"));
 
-catBtn.addEventListener("click", () => {
-  navState = "cat";
+catBtn.addEventListener("click", () => selectAnimal("cat"));
+
+function selectAnimal(animal) {
+  navState = animal;
   infoEl.textContent = "";
   renderBtn.style.visibility = "visible";
-  renderBtn.textContent = "Show me a cat and a fact about them!";
+  renderBtn.textContent = `Show me a ${animal} and a fact about them!`;
   console.log(navState);
-});
+}
 
 /*rendering on button click, while focused pressing enter will also run the fetch and render cycle, 
 holding enter can break things slightly and render several images and facts after one another*/
@@ -111,6 +107,7 @@ function render() {
         );
         break;
       case "home":
+        //in case the button somehow shows up when it shouldn't; lead the user to fix it themselves
         infoEl.style.color = "crimson";
         infoEl.textContent = "Please select an animal first.";
     }
