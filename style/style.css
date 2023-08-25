@@ -58,10 +58,3 @@ main {
 pre {
   user-select: none;
 }
-
-@media (max-width: 400px) {
-  img {
-    max-width: 10rem;
-    max-height: 10rem;
-  }
-}
