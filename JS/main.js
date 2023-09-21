@@ -25,6 +25,7 @@ catBtn.addEventListener("click", () => selectAnimal("cat"));
 function selectAnimal(animal) {
   navState = animal;
   infoEl.textContent = "";
+  infoEl.removeAttribute("id", "error");
   renderBtn.style.visibility = "visible";
   renderBtn.textContent = `Show me a ${animal} and a fact about them!`;
   console.log(navState);
@@ -34,8 +35,8 @@ function selectAnimal(animal) {
 holding enter can break things slightly and render several images and facts after one another*/
 renderBtn.addEventListener("click", render);
 
-renderBtn.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") render;
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") render();
 });
 
 //making elements to set img and fact to with data from APIs and appending them to the container
@@ -69,15 +70,17 @@ async function compileContent(imgURL, factURL) {
     setFact(fact);
   } catch (error) {
     //add proper user-friendly error message
-    infoEl.style.color = "crimson";
+    infoEl.setAttribute("id", "error");
     console.error(`Something went wrong:\n${error}`);
-    throw (infoEl.textContent = "Error, something went wrong.");
+    infoEl.textContent = "Error, something went wrong.";
+    throw new Error("Error, something went wrong");
   }
 }
 
 //show the content and change the render button text to add some flavour
 const showAndPrepareMore = () => {
   contentContainer.style.visibility = "visible";
+  infoEl.removeAttribute("id", "error");
   infoEl.style.color = "#653239";
   if ((renderBtn.textContent = "Show me an animal and a fact about it!"))
     renderBtn.textContent = "MORE!";
@@ -108,14 +111,15 @@ function render() {
         break;
       case "home":
         //in case the button somehow shows up when it shouldn't; lead the user to fix it themselves
-        infoEl.style.color = "crimson";
+        infoEl.setAttribute("id", "error");
         infoEl.textContent = "Please select an animal first.";
     }
   } catch (error) {
     //put error in console and give a user-friendly error message in DOM
     console.error(`Something went wrong:\n${error}`);
-    infoEl.style.color = "crimson";
-    throw (infoEl.textContent = "Error, something went wrong");
+    infoEl.setAttribute("id", "error");
+    infoEl.textContent = "Error, something went wrong";
+    throw new Error("Error, something went wrong");
   }
 }
 
@@ -127,10 +131,11 @@ async function fetchData(url) {
 
     return data;
   } catch (error) {
-    infoEl.style.color = "crimson";
+    infoEl.setAttribute("id", "error");
     console.error(`Something went wrong:\n${error}`);
     //if this function fails, the problem should be the API
-    throw (infoEl.textContent = "Error, something went wrong with the API.");
+    infoEl.textContent = "Error, something went wrong with the API.";
+    throw new Error("API Error");
   }
 }
 

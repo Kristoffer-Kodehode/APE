@@ -44,6 +44,16 @@ main {
   margin: auto;
 }
 
+#error {
+  color: Crimson;
+  text-shadow: rgb(192, 18, 53) 2px 2px 5px;
+  border: crimson solid 2px;
+  border-radius: 13px;
+  max-width: fit-content;
+  padding: 13px;
+  box-shadow: crimson 0 0 30px, inset rgb(192, 18, 53) 0 0 15px;
+}
+
 #container {
   box-shadow: #653239 5px 5px 10px, #653239 -3px -3px 10px;
   background-color: #eaf9d9;
